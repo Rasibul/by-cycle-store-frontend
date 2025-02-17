@@ -5,7 +5,7 @@ const Navbar = () => {
   const [isToggleOpen, setIsToggleOpen] = useState(false);
 
   const navbarLinks = [
-    { to: "/", label: "All Bicycles" },
+    { to: "/all-bicycles", label: "All Bicycles" },
     { to: "/about", label: "About Us" },
     { to: "/checkout", label: "Checkout" },
   ];
