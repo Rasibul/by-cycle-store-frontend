@@ -2,6 +2,8 @@ import { createBrowserRouter } from "react-router-dom";
 import MainLayOut from "../layouts/MainLayouts";
 import Home from "../pages/home/Home";
 import ALlBiCycle from "../pages/allBiCycles/ALlBiCycle";
+import About from "../pages/about/About";
+import Checkout from "../pages/checkout/Checkout";
 
 const router = createBrowserRouter([
   {
@@ -16,6 +18,14 @@ const router = createBrowserRouter([
       {
         path: "/all-bicycles",
         element: <ALlBiCycle />,
+      },
+      {
+        path: "/about-us",
+        element: <About />,
+      },
+      {
+        path: "/checkout",
+        element: <Checkout />,
       },
     ],
   },

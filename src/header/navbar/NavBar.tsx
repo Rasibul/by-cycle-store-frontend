@@ -6,7 +6,7 @@ const Navbar = () => {
 
   const navbarLinks = [
     { to: "/all-bicycles", label: "All Bicycles" },
-    { to: "/about", label: "About Us" },
+    { to: "/about-us", label: "About Us" },
     { to: "/checkout", label: "Checkout" },
   ];
 
