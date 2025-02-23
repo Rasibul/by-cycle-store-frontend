@@ -3,7 +3,9 @@ import { Navigation, Pagination, Autoplay } from "swiper/modules";
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
-import cycleBanner1 from "../../assets/cycle pic.avif";
+import Cycle1 from "../../assets/Cycle 1.png";
+import Cycle2 from "../../assets/Cycle 2.png";
+import Cycle3 from "../../assets/Cycle 3.png";
 
 const Banner = () => {
   return (
@@ -18,23 +20,23 @@ const Banner = () => {
       >
         <SwiperSlide>
           <img
-            src={cycleBanner1}
+            src={Cycle1}
             alt="Special Offers"
             // className="w-full h-[400px] object-cover"
           />
         </SwiperSlide>
         <SwiperSlide>
           <img
-            src="/images/banner2.jpg"
+            src={Cycle2}
             alt="Application Features"
-            className="w-full h-[400px] object-cover"
+            // className="w-full h-[400px] object-cover"
           />
         </SwiperSlide>
         <SwiperSlide>
           <img
-            src="/images/banner3.jpg"
+            src={Cycle3}
             alt="Special Products"
-            className="w-full h-[400px] object-cover"
+            // className="w-full h-[400px] object-cover"
           />
         </SwiperSlide>
       </Swiper>
