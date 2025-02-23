@@ -1,5 +1,7 @@
 import { Link } from "react-router-dom";
 import { useGetAllProductsQuery } from "../../redux/fetures/product/productApi";
+import Skeleton from "react-loading-skeleton";
+import "react-loading-skeleton/dist/skeleton.css";
 
 type Product = {
   _id: string;
@@ -29,10 +31,40 @@ interface ApiResponse {
 }
 
 const Products = () => {
-  const { data } = useGetAllProductsQuery<ApiResponse>(undefined);
-
+  const { data } = useGetAllProductsQuery<ApiResponse>({});
   const products = data?.data?.bicycles || []; // Access data.data.bicycles
   const topProducts = products.slice(0, 6);
+
+  if (data === undefined) {
+    return (
+      <div className="max-w-[1440px] mx-auto p-4">
+        <h2 className="text-3xl font-semibold mb-8 text-center">
+          Top Products
+        </h2>
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          {Array.from({ length: 6 }).map((_, index) => (
+            <div key={index} className="bg-white p-6 rounded-xl shadow-lg">
+              <Skeleton height={224} className="rounded-lg" />
+              <Skeleton height={24} className="mt-4" />
+              <Skeleton height={16} className="mt-2" />
+              <div className="mt-4 flex justify-between">
+                <div>
+                  <Skeleton height={16} width={100} />
+                  <Skeleton height={16} width={100} className="mt-2" />
+                </div>
+                <div>
+                  <Skeleton height={16} width={100} />
+                  <Skeleton height={16} width={100} className="mt-2" />
+                </div>
+              </div>
+              <Skeleton height={24} className="mt-4" />
+              <Skeleton height={48} className="mt-6" />
+            </div>
+          ))}
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="max-w-[1440px] mx-auto p-4">

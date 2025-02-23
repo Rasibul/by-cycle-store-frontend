@@ -1,5 +1,7 @@
 import { useGetAllProductsQuery } from "../../redux/fetures/product/productApi";
 import Navbar from "../../header/navbar/NavBar";
+import Skeleton from "react-loading-skeleton";
+import "react-loading-skeleton/dist/skeleton.css";
 type Product = {
   _id: string;
   name: string;
@@ -31,7 +33,36 @@ const ALlBiCycle = () => {
   const { data } = useGetAllProductsQuery<ApiResponse>(undefined);
 
   const products = data?.data?.bicycles || [];
-
+  if (data === undefined) {
+    return (
+      <div className="max-w-[1440px] mx-auto p-4">
+        <h2 className="text-3xl font-semibold mb-8 text-center">
+          Top Products
+        </h2>
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          {Array.from({ length: 10 }).map((_, index) => (
+            <div key={index} className="bg-white p-6 rounded-xl shadow-lg">
+              <Skeleton height={224} className="rounded-lg" />
+              <Skeleton height={24} className="mt-4" />
+              <Skeleton height={16} className="mt-2" />
+              <div className="mt-4 flex justify-between">
+                <div>
+                  <Skeleton height={16} width={100} />
+                  <Skeleton height={16} width={100} className="mt-2" />
+                </div>
+                <div>
+                  <Skeleton height={16} width={100} />
+                  <Skeleton height={16} width={100} className="mt-2" />
+                </div>
+              </div>
+              <Skeleton height={24} className="mt-4" />
+              <Skeleton height={48} className="mt-6" />
+            </div>
+          ))}
+        </div>
+      </div>
+    );
+  }
   return (
     <div className="max-w-[1440px] mx-auto p-4">
       <Navbar></Navbar>
@@ -39,13 +70,13 @@ const ALlBiCycle = () => {
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-8">
         {products.map((product: Product) => (
           <div
-            key={product._id}
+            key={product?._id}
             className="bg-white p-6 rounded-xl shadow-lg  "
           >
             <div className="relative overflow-hidden rounded-lg">
               <img
-                src={product.photo}
-                alt={product.name}
+                src={product?.photo}
+                alt={product?.name}
                 className="w-full h-56 object-cover transform hover:scale-110 transition-transform duration-300"
               />
               {!product.inStock && (
@@ -57,16 +88,16 @@ const ALlBiCycle = () => {
               )}
             </div>
             <h3 className="text-2xl font-bold mt-4 text-gray-800">
-              {product.name}
+              {product?.name}
             </h3>
             <p className="text-gray-600 text-base mt-2">
-              {product.description}
+              {product?.description}
             </p>
             <div className="mt-4  flex justify-between">
               <div>
                 <p className="text-gray-500 text-sm font-bold">
                   <span className="font-medium ">Price: </span>
-                  {product.price} Tk
+                  {product?.price} Tk
                 </p>
                 <p className="text-gray-500 text-sm font-bold">
                   <span className="font-medium">Brand:</span> {product.brand}
@@ -78,7 +109,7 @@ const ALlBiCycle = () => {
                 </p>
                 <p className="text-gray-500 text-sm font-bold">
                   <span className="font-medium">Quantity:</span>{" "}
-                  {product.quantity}
+                  {product?.quantity}
                 </p>
               </div>
             </div>
