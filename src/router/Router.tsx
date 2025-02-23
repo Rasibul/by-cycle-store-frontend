@@ -6,6 +6,7 @@ import About from "../pages/about/About";
 import Checkout from "../pages/checkout/Checkout";
 import Login from "../pages/login/Login";
 import Signup from "../pages/signUp/Signup";
+import SingleProductDetails from "../pages/singleProductDetails/SingleProductDetails";
 
 const router = createBrowserRouter([
   {
@@ -20,6 +21,10 @@ const router = createBrowserRouter([
       {
         path: "/all-bicycles",
         element: <ALlBiCycle />,
+      },
+      {
+        path: "/products/:id",
+        element: <SingleProductDetails />,
       },
       {
         path: "/about-us",

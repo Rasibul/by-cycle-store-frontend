@@ -121,16 +121,18 @@ const Products = () => {
                 {product.inStock ? "In Stock" : "Out of Stock"}
               </p>
             </div>
-            <button
-              className={`mt-6 w-full px-6 py-3 rounded-lg font-semibold text-white transition-all duration-300 ${
-                product.inStock
-                  ? "bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700"
-                  : "bg-gray-400 cursor-not-allowed"
-              }`}
-              disabled={!product.inStock}
-            >
-              {product.inStock ? "View Details" : "Unavailable"}
-            </button>
+            <Link to={`/products/${product._id}`}>
+              <button
+                className={`mt-6 w-full px-6 py-3 rounded-lg font-semibold text-white transition-all duration-300 ${
+                  product.inStock
+                    ? "bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700"
+                    : "bg-gray-400 cursor-not-allowed"
+                }`}
+                disabled={!product.inStock}
+              >
+                {product.inStock ? "View Details" : "Unavailable"}
+              </button>
+            </Link>
           </div>
         ))}
       </div>
