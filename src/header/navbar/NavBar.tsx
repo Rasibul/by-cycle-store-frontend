@@ -1,8 +1,24 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { logout } from "../../redux/fetures/auth/authSlice"; // Import auth actions
 import logo from "../../assets/cycle.jpg";
+import { RootState } from "../../redux/fetures/store";
+
 const Navbar = () => {
   const [isToggleOpen, setIsToggleOpen] = useState(false);
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  // Get user state from Redux
+  const { user } = useSelector((state: RootState) => state.auth);
+
+  // Handle logout function
+  const handleLogout = () => {
+    dispatch(logout());
+    localStorage.removeItem("token");
+    navigate("/");
+  };
 
   const navbarLinks = [
     { to: "/all-bicycles", label: "All Bicycles" },
@@ -11,9 +27,9 @@ const Navbar = () => {
   ];
 
   return (
-    <header className="max-w-[1440px] mx-auto px-6 py-4  ">
+    <header className="max-w-[1440px] mx-auto px-6 py-4">
       <div className="flex items-center justify-between">
-        {/* Store Name */}
+        {/* Store Logo */}
         <Link to="/" className="text-black font-bold text-xl">
           <img className="w-20 h-20" src={logo} alt="Logo" />
         </Link>
@@ -34,16 +50,28 @@ const Navbar = () => {
           </ul>
         </nav>
 
-        {/* Login Button */}
+        {/* Auth Buttons */}
         <div className="hidden lg:block">
-          <Link to="/login">
+          {user ? (
+            // Show Logout button when user is logged in
             <button
               type="button"
-              className="text-white bg-gradient-to-r from-cyan-500 to-blue-500 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-cyan-300 dark:focus:ring-cyan-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2"
+              onClick={handleLogout}
+              className="text-white bg-red-500 hover:bg-red-600 font-medium rounded-lg text-sm px-5 py-2.5"
             >
-              Login
+              Logout
             </button>
-          </Link>
+          ) : (
+            // Show Login button if user is not logged in
+            <Link to="/login">
+              <button
+                type="button"
+                className="text-white bg-gradient-to-r from-cyan-500 to-blue-500 hover:bg-gradient-to-bl font-medium rounded-lg text-sm px-5 py-2.5"
+              >
+                Login
+              </button>
+            </Link>
+          )}
         </div>
 
         {/* Mobile Toggle Button */}
@@ -71,14 +99,23 @@ const Navbar = () => {
               </li>
             ))}
             <li>
-              <Link to="/login" onClick={() => setIsToggleOpen(false)}>
+              {user ? (
                 <button
-                  type="button"
-                  className="text-white bg-gradient-to-r from-cyan-500 to-blue-500 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-cyan-300 dark:focus:ring-cyan-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2"
+                  onClick={handleLogout}
+                  className="text-white bg-red-500 hover:bg-red-600 font-medium rounded-lg text-sm px-5 py-2.5"
                 >
-                  Login
+                  Logout
                 </button>
-              </Link>
+              ) : (
+                <Link to="/login" onClick={() => setIsToggleOpen(false)}>
+                  <button
+                    type="button"
+                    className="text-white bg-gradient-to-r from-cyan-500 to-blue-500 hover:bg-gradient-to-bl font-medium rounded-lg text-sm px-5 py-2.5"
+                  >
+                    Login
+                  </button>
+                </Link>
+              )}
             </li>
           </ul>
         </nav>

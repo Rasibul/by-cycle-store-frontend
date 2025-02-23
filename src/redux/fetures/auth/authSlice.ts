@@ -1,7 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { RootState } from '../store';
 
-
 type TAuthState = {
     user: null | object;
     token: null | string;
@@ -20,10 +19,12 @@ const authSlice = createSlice({
             const { user, token } = action.payload;
             state.user = user;
             state.token = token;
+            localStorage.setItem('authToken', token); // Save token in local storage
         },
         logout: (state) => {
             state.user = null;
             state.token = null;
+            localStorage.removeItem('authToken'); // Remove token from local storage
         },
     },
 });

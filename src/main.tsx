@@ -5,6 +5,7 @@ import { RouterProvider } from "react-router-dom";
 import router from "./router/Router.tsx";
 import { Provider } from "react-redux";
 import { store } from "./redux/fetures/store.ts";
+import { Toaster } from "react-hot-toast";
 
 const rootElement = document.getElementById("root") as HTMLElement | null;
 
@@ -14,6 +15,7 @@ if (!rootElement) {
 
 createRoot(rootElement).render(
   <React.StrictMode>
+    <Toaster position="top-right" reverseOrder={false} />
     <Provider store={store}>
       <RouterProvider router={router} />
     </Provider>

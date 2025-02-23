@@ -1,10 +1,11 @@
 import { useForm } from "react-hook-form";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { useLoginMutation } from "../../redux/fetures/auth/authApi";
+import { setUser } from "../../redux/fetures/auth/authSlice";
+import { useAppDispatch } from "../../redux/fetures/hook";
+import toast from "react-hot-toast";
 
-type FormData = {
-  email: string;
-  password: string;
-};
+type FormData = { email: string; password: string };
 
 const Login = () => {
   const {
@@ -13,8 +14,21 @@ const Login = () => {
     formState: { errors },
   } = useForm<FormData>();
 
-  const onSubmit = (data: FormData) => {
-    console.log(data);
+  const dispatch = useAppDispatch();
+  const navigate = useNavigate();
+  const [login, { isLoading, error }] = useLoginMutation();
+
+  const onSubmit = async (data: FormData) => {
+    try {
+      const response = await login(data).unwrap();
+      dispatch(setUser({ user: response.data, token: response.data.token }));
+      localStorage.setItem("token", response.data.token);
+      toast.success("Login successful! 🎉");
+      navigate("/");
+    } catch (err) {
+      toast.error("Login failed! 😢");
+      console.error("Login failed", err);
+    }
   };
 
   return (
@@ -53,10 +67,12 @@ const Login = () => {
           <button
             type="submit"
             className="w-full mt-6 px-4 py-2 text-white bg-blue-500 rounded-lg hover:bg-blue-600"
+            disabled={isLoading}
           >
-            Sign in
+            {isLoading ? "Signing in..." : "Sign in"}
           </button>
         </form>
+        {error && <p className="text-red-500 text-center mt-2">Login failed</p>}
         <div className="flex justify-center mt-4 gap-10">
           <p>Are you a new user?</p>
           <Link to="/signup">

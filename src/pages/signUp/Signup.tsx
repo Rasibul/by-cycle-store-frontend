@@ -1,5 +1,7 @@
 import { useForm } from "react-hook-form";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { useRegisterMutation } from "../../redux/fetures/auth/authApi";
+import toast from "react-hot-toast";
 
 type FormData = { name: string; email: string; password: string };
 
@@ -10,8 +12,21 @@ const Signup = () => {
     formState: { errors },
   } = useForm<FormData>();
 
-  const onSubmit = (data: FormData) => {
-    console.log(data);
+  const [registerUser, { isLoading }] = useRegisterMutation();
+  // const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  const onSubmit = async (data: FormData) => {
+    try {
+      const response = await registerUser(data).unwrap();
+      console.log(response);
+
+      toast.success("Signup successful! 🎉");
+      navigate("/login");
+    } catch (err) {
+      toast.error("Signup failed! 😢");
+      console.error("Signup failed", err);
+    }
   };
 
   return (
@@ -62,9 +77,10 @@ const Signup = () => {
           </div>
           <button
             type="submit"
+            disabled={isLoading}
             className="w-full mt-6 px-4 py-2 text-white bg-blue-500 rounded-lg hover:bg-blue-600"
           >
-            Sign up
+            {isLoading ? "Signing Up..." : "Sign up"}
           </button>
         </form>
         <div className="flex justify-center mt-4 gap-10">
