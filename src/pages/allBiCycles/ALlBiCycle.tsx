@@ -6,20 +6,32 @@ type Product = {
   photo: string;
   description: string;
   price: number;
-  image: string;
   brand: string;
   type: string;
   quantity: number;
   inStock: boolean;
 };
 
+interface ApiResponse {
+  success: boolean;
+  message: string;
+  statusCode: number;
+  data: {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    data: any;
+    bicycles: Product[];
+    total: number;
+    page: number;
+    limit: number;
+    totalPages: number;
+  };
+}
+
 const ALlBiCycle = () => {
-  const { data, error, isLoading } = useGetAllProductsQuery(undefined);
+  const { data } = useGetAllProductsQuery<ApiResponse>(undefined);
 
-  if (isLoading) return <p>Loading products...</p>;
-  if (error) return <p>Error loading products.</p>;
+  const products = data?.data?.bicycles || [];
 
-  const products = data?.data || [];
   return (
     <div className="max-w-[1440px] mx-auto p-4">
       <Navbar></Navbar>
