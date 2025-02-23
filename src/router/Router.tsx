@@ -5,6 +5,7 @@ import ALlBiCycle from "../pages/allBiCycles/ALlBiCycle";
 import About from "../pages/about/About";
 import Checkout from "../pages/checkout/Checkout";
 import Login from "../pages/login/Login";
+import Signup from "../pages/signUp/Signup";
 
 const router = createBrowserRouter([
   {
@@ -33,6 +34,10 @@ const router = createBrowserRouter([
   {
     path: "/login",
     element: <Login />,
+  },
+  {
+    path: "/signup",
+    element: <Signup />,
   },
 ]);
 

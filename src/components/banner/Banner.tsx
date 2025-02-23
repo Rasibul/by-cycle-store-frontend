@@ -9,7 +9,7 @@ import Cycle3 from "../../assets/Cycle 3.png";
 
 const Banner = () => {
   return (
-    <div className="w-full max-w-5xl mx-auto">
+    <div className="max-w-[1440px] mx-auto px-6  mx-auto">
       <Swiper
         modules={[Navigation, Pagination, Autoplay]}
         navigation
