@@ -27,7 +27,7 @@ const Navbar = () => {
   ];
 
   return (
-    <header className="max-w-[1440px] mx-auto px-6 py-4">
+    <header className="max-w-[1440px] mx-auto p-4 ">
       <div className="flex items-center justify-between">
         {/* Store Logo */}
         <Link to="/" className="text-black font-bold text-xl">
