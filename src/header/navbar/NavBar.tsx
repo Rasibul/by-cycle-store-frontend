@@ -1,23 +1,36 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
-import { logout } from "../../redux/fetures/auth/authSlice"; // Import auth actions
+import { useSelector } from "react-redux";
 import logo from "../../assets/cycle.jpg";
 import { RootState } from "../../redux/fetures/store";
+import { jwtDecode } from "jwt-decode";
 
 const Navbar = () => {
+  const [userInfo, setUserInfo] = useState<{ id: string; role: string } | null>(null);
   const [isToggleOpen, setIsToggleOpen] = useState(false);
-  const dispatch = useDispatch();
   const navigate = useNavigate();
+  const user = useSelector((state: RootState) => state.auth.user) as { token: string } | null;
 
-  // Get user state from Redux
-  const { user } = useSelector((state: RootState) => state.auth);
 
-  // Handle logout function
-  const handleLogout = () => {
-    dispatch(logout());
-    localStorage.removeItem("token");
-    navigate("/");
+useEffect(() => {
+  if (user?.token) {
+    try {
+      const decoded: any = jwtDecode(user?.token);
+      setUserInfo({ id: decoded.id, role: decoded.role });
+    } catch (error) {
+      console.error("Invalid token:", error);
+    }
+  }
+}, [user]);
+ 
+
+
+  const handleDashboard = () => {
+    if (userInfo?.role === "customer") {
+      navigate("/customer-dashboard");
+    } else if (userInfo?.role === "admin") {
+      navigate("/admin-dashboard");
+    }
   };
 
   const navbarLinks = [
@@ -27,7 +40,7 @@ const Navbar = () => {
   ];
 
   return (
-    <header className="max-w-[1440px] mx-auto p-4 ">
+    <header className="max-w-[1440px] mx-auto p-4">
       <div className="flex items-center justify-between">
         {/* Store Logo */}
         <Link to="/" className="text-black font-bold text-xl">
@@ -53,13 +66,13 @@ const Navbar = () => {
         {/* Auth Buttons */}
         <div className="hidden lg:block">
           {user ? (
-            // Show Logout button when user is logged in
+            // Show Dashboard button if user is logged in
             <button
               type="button"
-              onClick={handleLogout}
-              className="text-white bg-red-500 hover:bg-red-600 font-medium rounded-lg text-sm px-5 py-2.5"
+              onClick={handleDashboard}
+              className="text-white bg-green-500 hover:bg-green-600 font-medium rounded-lg text-sm px-5 py-2.5"
             >
-              Logout
+              Dashboard
             </button>
           ) : (
             // Show Login button if user is not logged in
@@ -101,10 +114,13 @@ const Navbar = () => {
             <li>
               {user ? (
                 <button
-                  onClick={handleLogout}
-                  className="text-white bg-red-500 hover:bg-red-600 font-medium rounded-lg text-sm px-5 py-2.5"
+                  onClick={() => {
+                    handleDashboard();
+                    setIsToggleOpen(false);
+                  }}
+                  className="text-white bg-green-500 hover:bg-green-600 font-medium rounded-lg text-sm px-5 py-2.5"
                 >
-                  Logout
+                  Dashboard
                 </button>
               ) : (
                 <Link to="/login" onClick={() => setIsToggleOpen(false)}>
