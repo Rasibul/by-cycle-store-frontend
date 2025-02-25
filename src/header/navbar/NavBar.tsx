@@ -6,28 +6,30 @@ import { RootState } from "../../redux/fetures/store";
 import { jwtDecode } from "jwt-decode";
 
 const Navbar = () => {
-  const [userInfo, setUserInfo] = useState<{ id: string; role: string } | null>(null);
+  const [userInfo, setUserInfo] = useState<{ id: string; role: string } | null>(
+    null
+  );
   const [isToggleOpen, setIsToggleOpen] = useState(false);
   const navigate = useNavigate();
-  const user = useSelector((state: RootState) => state.auth.user) as { token: string } | null;
+  const user = useSelector((state: RootState) => state.auth.user) as {
+    token: string;
+  } | null;
 
-
-useEffect(() => {
-  if (user?.token) {
-    try {
-      const decoded: any = jwtDecode(user?.token);
-      setUserInfo({ id: decoded.id, role: decoded.role });
-    } catch (error) {
-      console.error("Invalid token:", error);
+  useEffect(() => {
+    if (user?.token) {
+      try {
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        const decoded: any = jwtDecode(user?.token);
+        setUserInfo({ id: decoded.id, role: decoded.role });
+      } catch (error) {
+        console.error("Invalid token:", error);
+      }
     }
-  }
-}, [user]);
- 
-
+  }, [user]);
 
   const handleDashboard = () => {
     if (userInfo?.role === "customer") {
-      navigate("/customer-dashboard");
+      navigate("/admin-dashboard");
     } else if (userInfo?.role === "admin") {
       navigate("/admin-dashboard");
     }

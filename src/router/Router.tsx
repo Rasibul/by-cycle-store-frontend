@@ -7,8 +7,7 @@ import Checkout from "../pages/checkout/Checkout";
 import Login from "../pages/login/Login";
 import Signup from "../pages/signUp/Signup";
 import SingleProductDetails from "../pages/singleProductDetails/SingleProductDetails";
-import AdminDashBoard from "../dashBoard/adminDashBoard/AdminDashBoard";
-import CustomerDashBoard from "../dashBoard/customerDashBoard/CustomerDashBoard";
+import Dashboard from "../layouts/DashBoard";
 
 const router = createBrowserRouter([
   {
@@ -49,12 +48,12 @@ const router = createBrowserRouter([
   // admin dashboard routes
   {
     path: "/admin-dashboard",
-    element: <AdminDashBoard />,
+    element: <Dashboard />,
   },
-  {
-    path: "/customer-dashboard",
-    element: <CustomerDashBoard />,
-  }
+  // {
+  //   path: "/customer-dashboard",
+  //   element: <CustomerDashBoard />,
+  // }
 ]);
 
 export default router;
