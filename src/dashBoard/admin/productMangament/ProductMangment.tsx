@@ -35,7 +35,7 @@ export type ProductsRowProps = {
 };
 
 const ProductMangment = () => {
-  const { data } = useGetAllProductsQuery<ApiResponse>({});
+  const { data, refetch } = useGetAllProductsQuery<ApiResponse>({});
   const products = data?.data?.bicycles || [];
 
   return (
@@ -87,7 +87,12 @@ const ProductMangment = () => {
         </thead>
         <tbody className="divide-y divide-gray-200">
           {products.map((product: Product, idx: number) => (
-            <ProductsRow key={product._id} product={product} idx={idx} />
+            <ProductsRow
+              key={product._id}
+              product={product}
+              idx={idx}
+              refetch={refetch}
+            />
           ))}
         </tbody>
       </table>

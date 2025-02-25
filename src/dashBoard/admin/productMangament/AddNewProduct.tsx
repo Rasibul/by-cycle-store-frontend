@@ -30,7 +30,7 @@ const AddNewProduct = () => {
       console.log(response);
 
       toast.success("Product added successfully! 🎉");
-      navigate("products-panel");
+      navigate("/");
     } catch (err) {
       toast.error("Failed to add product! 😢");
       console.error("Failed to add product", err);
