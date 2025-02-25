@@ -16,7 +16,10 @@ const authApi = baseApi.injectEndpoints({
                 body: credentials,
             }),
         }),
+        getSingleUserById: builder.query({
+            query: (id) => `/auth/${id}`,
+        }),
     }),
 });
 
-export const { useRegisterMutation, useLoginMutation } = authApi;
+export const { useRegisterMutation, useLoginMutation, useGetSingleUserByIdQuery } = authApi;
