@@ -8,6 +8,10 @@ import Login from "../pages/login/Login";
 import Signup from "../pages/signUp/Signup";
 import SingleProductDetails from "../pages/singleProductDetails/SingleProductDetails";
 import Dashboard from "../layouts/DashBoard";
+import AdminProfile from "../dashBoard/admin/adminProfile/AdminProfile";
+import ProductMangment from "../dashBoard/admin/productMangament/ProductMangment";
+import OrderMangment from "../dashBoard/admin/orderMangment/OrderMangment";
+import AllUser from "../dashBoard/admin/allUsers/AllUser";
 
 const router = createBrowserRouter([
   {
@@ -49,11 +53,25 @@ const router = createBrowserRouter([
   {
     path: "/admin-dashboard",
     element: <Dashboard />,
+    children: [
+      {
+        path: "adminProfile",
+        element: <AdminProfile />,
+      },
+      {
+        path: "products-panel",
+        element: <ProductMangment />,
+      },
+      {
+        path: "orders-panel",
+        element: <OrderMangment />,
+      },
+      {
+        path: "users-panel",
+        element: <AllUser />,
+      },
+    ],
   },
-  // {
-  //   path: "/customer-dashboard",
-  //   element: <CustomerDashBoard />,
-  // }
 ]);
 
 export default router;

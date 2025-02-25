@@ -5,12 +5,9 @@ import { useSelector } from "react-redux";
 import { RootState } from "../redux/fetures/store";
 import { jwtDecode } from "jwt-decode";
 import { TbDeviceAnalytics } from "react-icons/tb";
-import { BsCapsule } from "react-icons/bs";
 import { FaUserDoctor } from "react-icons/fa6";
-import { ImNewspaper } from "react-icons/im";
-import { BiMessageRoundedDetail } from "react-icons/bi";
-import { FaUsers } from "react-icons/fa";
-import { MdOutlineWork, MdReviews } from "react-icons/md";
+import { FaBorderAll, FaUsers } from "react-icons/fa";
+import { MdProductionQuantityLimits, MdReviews } from "react-icons/md";
 import { IoCartOutline, IoHomeOutline } from "react-icons/io5";
 
 const Dashboard: React.FC = () => {
@@ -124,38 +121,6 @@ const Dashboard: React.FC = () => {
             {/* admin panel */}
             {isAdmin ? (
               <div className="flex justify-center flex-col space-y-3 ">
-                {/* admin panel overview route */}
-                <li>
-                  <NavLink
-                    onClick={() => setOpen(false)}
-                    to="overview-admin"
-                    className={({ isActive, isPending }) =>
-                      isActive
-                        ? "font-semibold flex justify-start items-center gap-1 pl-2 bg-white text-blue-500 w-[96.2%] max-[639.5px]:mx-auto sm:ml-[4%] py-1 max-[639.5px]:rounded-[30px] sm:rounded-l-[30px] relative custom h-[45px] activated"
-                        : isPending
-                        ? ""
-                        : "font-semibold flex justify-start items-center gap-1 pl-2 w-[96%] ml-[4%] py-2 text-[#ffffff] rounded-l-[30px] h-[45px] initial-style hover:scale-110 transition duration-300 ease-linear"
-                    }
-                  >
-                    {open ? (
-                      <span className="flex justify-center items-center gap-2">
-                        {" "}
-                        <TbDeviceAnalytics
-                          // src={overviewIcon}
-                          className="w-16 sm:w-6 text-[40px] ml-2 nav-icon transition-colors duration-[250] ease-linear"
-                          // alt=""
-                        ></TbDeviceAnalytics>
-                        Overview
-                      </span>
-                    ) : (
-                      <TbDeviceAnalytics
-                        // src={overviewIcon}
-                        className="w-16 sm:w-6 text-[40px] ml-2 nav-icon transition-colors duration-[250] ease-linear relative z-[90]"
-                        // alt=""
-                      ></TbDeviceAnalytics>
-                    )}
-                  </NavLink>
-                </li>
                 {/* admin-profile route */}
                 <li>
                   <NavLink
@@ -172,23 +137,15 @@ const Dashboard: React.FC = () => {
                     {open ? (
                       <span className="flex justify-center items-center gap-2">
                         {" "}
-                        <CgProfile
-                          // src={overviewIcon}
-                          className="w-16 sm:w-6 text-[40px] ml-2 nav-icon transition-colors duration-[250] ease-linear"
-                          // alt=""
-                        ></CgProfile>
+                        <CgProfile className="w-16 sm:w-6 text-[40px] ml-2 nav-icon transition-colors duration-[250] ease-linear"></CgProfile>
                         Admin Profile
                       </span>
                     ) : (
-                      <CgProfile
-                        // src={overviewIcon}
-                        className="w-16 sm:w-6 text-[40px] ml-2 nav-icon transition-colors duration-[250] ease-linear relative z-[90]"
-                        // alt=""
-                      ></CgProfile>
+                      <CgProfile className="w-16 sm:w-6 text-[40px] ml-2 nav-icon transition-colors duration-[250] ease-linear relative z-[90]"></CgProfile>
                     )}
                   </NavLink>
                 </li>
-                {/* production-panel route */}
+                {/* products-panel route */}
                 <li>
                   <NavLink
                     onClick={() => setOpen(false)}
@@ -204,19 +161,19 @@ const Dashboard: React.FC = () => {
                     {open ? (
                       <span className="flex justify-center items-center gap-2">
                         {" "}
-                        <BsCapsule className="w-16 sm:w-6 text-[40px] ml-2"></BsCapsule>
+                        <MdProductionQuantityLimits className="w-16 sm:w-6 text-[40px] ml-2" />
                         Product Management
                       </span>
                     ) : (
-                      <BsCapsule className="w-16 sm:w-6 text-[40px] ml-2 relative z-[90]"></BsCapsule>
+                      <MdProductionQuantityLimits className="w-16 sm:w-6 text-[40px] ml-2 relative z-[90]" />
                     )}
                   </NavLink>
                 </li>
-                {/* doctors-panel route */}
+                {/* order-panel route */}
                 <li>
                   <NavLink
                     onClick={() => setOpen(false)}
-                    to="doctors-panel"
+                    to="orders-panel"
                     className={({ isActive, isPending }) =>
                       isActive
                         ? "font-semibold flex justify-start items-center gap-1 pl-2 bg-white text-blue-500 w-[96.2%] max-[639.5px]:mx-auto sm:ml-[4%] py-1 max-[639.5px]:rounded-[30px] sm:rounded-l-[30px] relative custom h-[45px] activated"
@@ -228,91 +185,19 @@ const Dashboard: React.FC = () => {
                     {open ? (
                       <span className="flex justify-center items-center gap-2">
                         {" "}
-                        <FaUserDoctor
-                          // src={overviewIcon}
-                          className="w-16 sm:w-6 text-[40px] ml-2 nav-icon transition-colors duration-[250] ease-linear"
-                          // alt=""
-                        ></FaUserDoctor>
-                        All Doctors
+                        <FaBorderAll className="w-16 sm:w-6 text-[40px] ml-2" />
+                        Order Management
                       </span>
                     ) : (
-                      <FaUserDoctor
-                        // src={overviewIcon}
-                        className="w-16 sm:w-6 text-[40px] ml-2 nav-icon transition-colors duration-[250] ease-linear relative z-[90]"
-                        // alt=""
-                      ></FaUserDoctor>
+                      <FaBorderAll className="w-16 sm:w-6 text-[40px] ml-2 relative z-[90]" />
                     )}
                   </NavLink>
                 </li>
-                {/* articles-panel route */}
+                {/* users-panel route */}
                 <li>
                   <NavLink
                     onClick={() => setOpen(false)}
-                    to="articles-panel"
-                    className={({ isActive, isPending }) =>
-                      isActive
-                        ? "font-semibold flex justify-start items-center gap-1 pl-2 bg-white text-blue-500 w-[96.2%] max-[639.5px]:mx-auto sm:ml-[4%] py-1 max-[639.5px]:rounded-[30px] sm:rounded-l-[30px] relative custom h-[45px] activated"
-                        : isPending
-                        ? ""
-                        : "font-semibold flex justify-start items-center gap-1 pl-2 w-[96%] ml-[4%] py-2 text-[#ffffff] rounded-[30px] h-[45px] initial-style hover:scale-110 transition duration-300 ease-linear"
-                    }
-                  >
-                    {open ? (
-                      <span className="flex justify-center items-center gap-2">
-                        {" "}
-                        <ImNewspaper
-                          // src={overviewIcon}
-                          className="w-16 sm:w-6 text-[40px] ml-2 nav-icon transition-colors duration-[250] ease-linear"
-                          // alt=""
-                        ></ImNewspaper>
-                        News & Articles
-                      </span>
-                    ) : (
-                      <ImNewspaper
-                        // src={overviewIcon}
-                        className="w-16 sm:w-6 text-[40px] ml-2 nav-icon transition-colors duration-[250] ease-linear relative z-[90]"
-                        // alt=""
-                      ></ImNewspaper>
-                    )}
-                  </NavLink>
-                </li>
-                {/* advice-pane route */}
-                <li>
-                  <NavLink
-                    onClick={() => setOpen(false)}
-                    to="advice-panel"
-                    className={({ isActive, isPending }) =>
-                      isActive
-                        ? "font-semibold flex justify-start items-center gap-1 pl-2 bg-white text-blue-500 w-[96.2%] max-[639.5px]:mx-auto sm:ml-[4%] py-1 max-[639.5px]:rounded-[30px] sm:rounded-l-[30px] relative custom h-[45px] activated"
-                        : isPending
-                        ? ""
-                        : "font-semibold flex justify-start items-center gap-1 pl-2 w-[96%] ml-[4%] py-2 text-[#ffffff] rounded-[30px] h-[45px] initial-style hover:scale-110 transition duration-300 ease-linear"
-                    }
-                  >
-                    {open ? (
-                      <span className="flex justify-center items-center gap-2">
-                        {" "}
-                        <BiMessageRoundedDetail
-                          // src={overviewIcon}
-
-                          className="w-16 sm:w-6 text-[40px] ml-2 nav-icon transition-colors duration-[250] ease-linear"
-                          // alt=""
-                        ></BiMessageRoundedDetail>
-                        Advices
-                      </span>
-                    ) : (
-                      <BiMessageRoundedDetail
-                        // src={overviewIcon}
-                        className="w-16 sm:w-6 text-[40px] ml-2 nav-icon transition-colors duration-[250] ease-linear relative z-[90]"
-                        // alt=""
-                      ></BiMessageRoundedDetail>
-                    )}
-                  </NavLink>
-                </li>
-                <li>
-                  <NavLink
-                    onClick={() => setOpen(false)}
-                    to="manage-users"
+                    to="users-panel"
                     className={({ isActive, isPending }) =>
                       isActive
                         ? "font-semibold flex justify-start items-center gap-1 pl-2 bg-white text-blue-500 w-[96.2%] max-[639.5px]:mx-auto sm:ml-[4%] py-1 max-[639.5px]:rounded-[30px] sm:rounded-l-[30px] relative custom h-[45px] activated"
@@ -335,38 +220,6 @@ const Dashboard: React.FC = () => {
                         // src={overviewIcon}
                         className="w-16 sm:w-6 text-[40px] ml-2 nav-icon transition-colors duration-[250] ease-linear relative z-[90]"
                       ></FaUsers>
-                    )}
-                  </NavLink>
-                </li>
-                {/* job-panel route */}
-                <li>
-                  <NavLink
-                    onClick={() => setOpen(false)}
-                    to="/Dashboard/job-panel"
-                    className={({ isActive, isPending }) =>
-                      isActive
-                        ? "font-semibold flex justify-start items-center gap-1 pl-2 bg-white text-blue-500 w-[96.2%] max-[639.5px]:mx-auto sm:ml-[4%] py-1 max-[639.5px]:rounded-[30px] sm:rounded-l-[30px] relative custom h-[45px] activated"
-                        : isPending
-                        ? ""
-                        : "font-semibold flex justify-start items-center gap-1 pl-2 w-[96%] ml-[4%] py-2 text-[#ffffff] rounded-[30px] h-[45px] initial-style hover:scale-110 transition duration-300 ease-linear"
-                    }
-                  >
-                    {open ? (
-                      <span className="flex justify-center items-center gap-2">
-                        {" "}
-                        <MdOutlineWork
-                          // src={overviewIcon}
-                          className="w-16 sm:w-6 text-[40px] ml-2 nav-icon transition-colors duration-[250] ease-linear"
-                          // alt=""
-                        ></MdOutlineWork>
-                        Jobs
-                      </span>
-                    ) : (
-                      <MdOutlineWork
-                        // src={overviewIcon}
-                        className="w-16 sm:w-6 text-[40px] ml-2 nav-icon transition-colors duration-[250] ease-linear relative z-[90]"
-                        // alt=""
-                      ></MdOutlineWork>
                     )}
                   </NavLink>
                 </li>
