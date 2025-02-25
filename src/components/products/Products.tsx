@@ -32,7 +32,7 @@ interface ApiResponse {
 
 const Products = () => {
   const { data } = useGetAllProductsQuery<ApiResponse>({});
-  const products = data?.data?.bicycles || []; // Access data.data.bicycles
+  const products = data?.data?.bicycles || [];
   const topProducts = products.slice(0, 6);
 
   if (data === undefined) {
