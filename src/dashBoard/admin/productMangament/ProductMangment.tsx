@@ -43,7 +43,7 @@ const ProductMangment = () => {
       <div className="text-center mt-4 font-bold text-2xl">
         <h2>Show All Products</h2>
       </div>{" "}
-      <Link to="/add-product">
+      <Link to="add-product">
         <div className="flex justify-end mb-2">
           <button className="p-4 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition-colors font-bold ">
             Add New Product

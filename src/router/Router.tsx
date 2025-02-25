@@ -12,6 +12,7 @@ import AdminProfile from "../dashBoard/admin/adminProfile/AdminProfile";
 import ProductMangment from "../dashBoard/admin/productMangament/ProductMangment";
 import OrderMangment from "../dashBoard/admin/orderMangment/OrderMangment";
 import AllUser from "../dashBoard/admin/allUsers/AllUser";
+import AddNewProduct from "../dashBoard/admin/productMangament/AddNewProduct";
 
 const router = createBrowserRouter([
   {
@@ -61,6 +62,10 @@ const router = createBrowserRouter([
       {
         path: "products-panel",
         element: <ProductMangment />,
+      },
+      {
+        path: "products-panel/add-product",
+        element: <AddNewProduct />,
       },
       {
         path: "orders-panel",
