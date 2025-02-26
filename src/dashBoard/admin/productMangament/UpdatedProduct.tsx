@@ -35,13 +35,13 @@ const UpdatedProduct = () => {
       });
     }
   }, [product, reset]);
-  const navaigate = useNavigate();
+  const navigate = useNavigate();
   // Handle form submission
   const onSubmit = async (data: FormData) => {
     try {
       await updateProduct({ id, ...data }).unwrap();
       toast.success("Product updated successfully! 🎉");
-      navaigate("/admin-dashboard");
+      navigate("/admin-dashboard");
     } catch (error) {
       toast.error("Failed to update product! 😢");
       console.error("Failed to update product", error);
