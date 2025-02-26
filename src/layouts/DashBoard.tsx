@@ -234,38 +234,6 @@ const Dashboard: React.FC = () => {
             ) : (
               // user panel
               <div className="flex justify-center flex-col space-y-3">
-                {/* user-panel-oveview */}
-                <li>
-                  <NavLink
-                    onClick={() => setOpen(false)}
-                    to="overview-user"
-                    className={({ isActive, isPending }) =>
-                      isActive
-                        ? "font-semibold flex justify-start items-center gap-1 pl-2 bg-white text-blue-500 w-[96.2%] max-[639.5px]:mx-auto sm:ml-[4%] py-1 max-[639.5px]:rounded-[30px] sm:rounded-l-[30px] relative custom h-[45px] activated"
-                        : isPending
-                        ? ""
-                        : "font-semibold flex justify-start items-center gap-1 pl-2 w-[96%] ml-[4%] py-2 text-[#ffffff] rounded-[30px] h-[45px] initial-style hover:scale-110 transition duration-300 ease-linear"
-                    }
-                  >
-                    {open ? (
-                      <span className="flex justify-center items-center gap-2">
-                        {" "}
-                        <TbDeviceAnalytics
-                          // src={overviewIcon}
-                          className="w-16 sm:w-6 text-[40px] ml-2 nav-icon transition-colors duration-[250] ease-linear"
-                          // alt=""
-                        ></TbDeviceAnalytics>
-                        Overview
-                      </span>
-                    ) : (
-                      <TbDeviceAnalytics
-                        // src={overviewIcon}
-                        className="w-16 sm:w-6 text-[40px] ml-2 nav-icon transition-colors duration-[250] ease-linear relative z-[90]"
-                        // alt=""
-                      ></TbDeviceAnalytics>
-                    )}
-                  </NavLink>
-                </li>
                 {/* myProfile route */}
                 <li>
                   <NavLink

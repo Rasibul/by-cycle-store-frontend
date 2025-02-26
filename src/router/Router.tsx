@@ -14,6 +14,7 @@ import OrderMangment from "../dashBoard/admin/orderMangment/OrderMangment";
 import AllUser from "../dashBoard/admin/allUsers/AllUser";
 import AddNewProduct from "../dashBoard/admin/productMangament/AddNewProduct";
 import UpdatedProduct from "../dashBoard/admin/productMangament/UpdatedProduct";
+import CustomerProfile from "../dashBoard/admin/customer/customerProfile/CustomerProfile";
 
 const router = createBrowserRouter([
   {
@@ -80,6 +81,11 @@ const router = createBrowserRouter([
         path: "users-panel",
         element: <AllUser />,
       },
+      // customer dashboard routes
+      {
+        path:"myProfile",
+        element:<CustomerProfile/>
+      }
     ],
   },
 ]);
