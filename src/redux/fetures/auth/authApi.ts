@@ -29,8 +29,17 @@ const authApi = baseApi.injectEndpoints({
                 method: 'PUT',
             }),
         }),
-     
+        changePassword: builder.mutation({
+            query: (paswwordCredentials) => ({
+                url: '/auth/change-password',
+                method: 'POST',
+                body: paswwordCredentials,
+                headers: {
+                    Authorization: `Bearer ${localStorage.getItem('token')}`, // Add the token here
+                },
+            }),
+        }),
     }),
 });
 
-export const { useGetAllUsersQuery ,useRegisterMutation, useLoginMutation, useGetSingleUserByIdQuery,  useBlockUserMutation  } = authApi;
+export const { useGetAllUsersQuery, useRegisterMutation, useLoginMutation, useGetSingleUserByIdQuery, useBlockUserMutation, useChangePasswordMutation } = authApi;

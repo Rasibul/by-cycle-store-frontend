@@ -8,7 +8,8 @@ export const baseApi = createApi({
         baseUrl: "http://localhost:5000/api",
         prepareHeaders: (headers) => {
             // Retrieve the token from localStorage
-            const token = localStorage.getItem('token');
+            const token = localStorage.getItem('authToken');
+            console.log(token);
             if (token) {
                 // Add the token to the Authorization header
                 headers.set('Authorization', `Bearer ${token}`);
