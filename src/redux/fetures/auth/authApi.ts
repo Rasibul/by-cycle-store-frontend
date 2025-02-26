@@ -22,8 +22,15 @@ const authApi = baseApi.injectEndpoints({
         getSingleUserById: builder.query({
             query: (id) => `/auth/${id}`,
         }),
+
+        blockUser: builder.mutation({
+            query: (id) => ({
+                url: `/auth/block/${id}`,
+                method: 'PUT',
+            }),
+        }),
      
     }),
 });
 
-export const { useGetAllUsersQuery ,useRegisterMutation, useLoginMutation, useGetSingleUserByIdQuery, } = authApi;
+export const { useGetAllUsersQuery ,useRegisterMutation, useLoginMutation, useGetSingleUserByIdQuery,  useBlockUserMutation  } = authApi;
