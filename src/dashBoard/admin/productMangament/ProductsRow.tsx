@@ -1,7 +1,7 @@
 import React from "react";
 import { useDeleteProductMutation } from "../../../redux/fetures/product/productApi";
 import Swal from "sweetalert2";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 interface Product {
   _id: string;
   name: string;
@@ -95,9 +95,11 @@ const ProductsRow: React.FC<ProductsRowProps> = ({ product, idx, refetch }) => {
       <td className="py-4 px-4 text-sm text-gray-700">${price.toFixed(2)}</td>
       <td className="py-4 px-4 text-sm text-gray-700">
         <div className="flex space-x-2">
-          <button className="p-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition-colors">
-            Edit
-          </button>
+          <Link to={`update-product/${_id}`}>
+            <button className="p-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition-colors">
+              Edit
+            </button>
+          </Link>
           <button
             onClick={handleDelete}
             className="p-2 bg-red-500 text-white rounded-lg hover:bg-red-600 transition-colors"

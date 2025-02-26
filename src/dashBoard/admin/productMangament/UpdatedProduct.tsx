@@ -1,47 +1,62 @@
+import { useEffect } from "react";
 import { useForm } from "react-hook-form";
+import {
+  useGetProductByIdQuery,
+  useUpdateProductMutation,
+} from "../../../redux/fetures/product/productApi";
+import { FormData } from "./AddNewProduct";
 import toast from "react-hot-toast";
-import { useNavigate } from "react-router-dom";
-import { useAddProductMutation } from "../../../redux/fetures/product/productApi";
+import { useNavigate, useParams } from "react-router-dom";
 
-export interface FormData {
-  name: string;
-  brand: string;
-  price: number;
-  type: string;
-  description: string;
-  photo: string;
-  quantity: number;
-  inStock: boolean;
-}
+const UpdatedProduct = () => {
+  const { id } = useParams(); // Get the product ID from the URL
+  const { data: product, isLoading, isError } = useGetProductByIdQuery(id);
+  console.log(product);
+  const [updateProduct] = useUpdateProductMutation();
 
-const AddNewProduct = () => {
   const {
     register,
     handleSubmit,
+    reset,
     formState: { errors },
   } = useForm<FormData>();
 
-  const [addProduct] = useAddProductMutation();
-  const navigate = useNavigate();
-
+  useEffect(() => {
+    if (product) {
+      reset({
+        name: product.name,
+        brand: product.brand,
+        price: product.price,
+        type: product.type,
+        description: product.description,
+        photo: product.photo,
+        quantity: product.quantity,
+        inStock: product.inStock,
+      });
+    }
+  }, [product, reset]);
+  const navaigate = useNavigate();
+  // Handle form submission
   const onSubmit = async (data: FormData) => {
     try {
-      const response = await addProduct(data).unwrap();
-      console.log(response);
-
-      toast.success("Product added successfully! 🎉");
-      navigate("/");
-    } catch (err) {
-      toast.error("Failed to add product! 😢");
-      console.error("Failed to add product", err);
+      await updateProduct({ id, ...data }).unwrap();
+      toast.success("Product updated successfully! 🎉");
+      navaigate("/admin-dashboard");
+    } catch (error) {
+      toast.error("Failed to update product! 😢");
+      console.error("Failed to update product", error);
     }
   };
+
+  // Loading and error states
+  if (isLoading) return <div>Loading...</div>;
+  if (isError) return <div>Error loading product data.</div>;
 
   return (
     <div className="w-full lg:w-3/4 mx-auto bg-white flex items-center relative overflow-hidden shadow-xl rounded-lg">
       <form onSubmit={handleSubmit(onSubmit)} className={`p-4 lg:p-8 w-full`}>
         <h1 className="backdrop-blur-sm text-2xl lg:text-4xl whitespace-nowrap w-min mb-8 border-b-4 border-b-blue-500 capitalize">
-          Add Product
+          Update Product
         </h1>
         <div className="space-y-5 grid gap-5 grid-cols-1 sm:grid-cols-2 justify-center items-baseline">
           {/* Product Name */}
@@ -56,7 +71,7 @@ const AddNewProduct = () => {
               id="name"
               type="text"
               {...register("name", { required: true })}
-              placeholder="Enter Product Name"
+              defaultValue={product?.data?.name}
               className="p-3 block w-full outline-1 border valid:outline-blue-500 rounded-md invalid:outline-red-600"
             />
             {errors.name && (
@@ -78,7 +93,7 @@ const AddNewProduct = () => {
               id="brand"
               type="text"
               {...register("brand", { required: true })}
-              placeholder="Enter Brand Name"
+              defaultValue={product?.data?.brand}
               className="p-3 block w-full outline-1 border valid:outline-blue-500 rounded-md invalid:outline-red-600"
             />
             {errors.brand && (
@@ -100,7 +115,7 @@ const AddNewProduct = () => {
               id="price"
               type="number"
               {...register("price", { required: true, min: 0 })}
-              placeholder="Enter Price"
+              defaultValue={product?.data?.price}
               className="p-3 block w-full outline-1 border valid:outline-blue-500 rounded-md invalid:outline-red-600"
             />
             {errors.price && (
@@ -148,7 +163,7 @@ const AddNewProduct = () => {
             <textarea
               id="description"
               {...register("description", { required: true })}
-              placeholder="Enter Description"
+              defaultValue={product?.data?.description}
               className="p-3 block w-full outline-1 border valid:outline-blue-500 rounded-md invalid:outline-red-600"
             />
             {errors.description && (
@@ -170,7 +185,7 @@ const AddNewProduct = () => {
               id="photo"
               type="text"
               {...register("photo", { required: true })}
-              placeholder="Enter Photo URL"
+              defaultValue={product?.data?.photo}
               className="p-3 block w-full outline-1 border valid:outline-blue-500 rounded-md invalid:outline-red-600"
             />
             {errors.photo && (
@@ -192,7 +207,7 @@ const AddNewProduct = () => {
               id="quantity"
               type="number"
               {...register("quantity", { required: true, min: 0 })}
-              placeholder="Enter Quantity"
+              defaultValue={product?.data?.quantity}
               className="p-3 block w-full outline-1 border valid:outline-blue-500 rounded-md invalid:outline-red-600"
             />
             {errors.quantity && (
@@ -232,7 +247,7 @@ const AddNewProduct = () => {
             type="submit"
             className="px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600"
           >
-            Add Product
+            Update Product
           </button>
         </div>
       </form>
@@ -240,4 +255,4 @@ const AddNewProduct = () => {
   );
 };
 
-export default AddNewProduct;
+export default UpdatedProduct;

@@ -13,6 +13,7 @@ import ProductMangment from "../dashBoard/admin/productMangament/ProductMangment
 import OrderMangment from "../dashBoard/admin/orderMangment/OrderMangment";
 import AllUser from "../dashBoard/admin/allUsers/AllUser";
 import AddNewProduct from "../dashBoard/admin/productMangament/AddNewProduct";
+import UpdatedProduct from "../dashBoard/admin/productMangament/UpdatedProduct";
 
 const router = createBrowserRouter([
   {
@@ -66,6 +67,10 @@ const router = createBrowserRouter([
       {
         path: "products-panel/add-product",
         element: <AddNewProduct />,
+      },
+      {
+        path: "products-panel/update-product/:id",
+        element: <UpdatedProduct />,
       },
       {
         path: "orders-panel",
