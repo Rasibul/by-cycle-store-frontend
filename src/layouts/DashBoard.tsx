@@ -30,7 +30,7 @@ const Dashboard: React.FC = () => {
       }
     }
   }, [user]);
-  console.log(userInfo);
+
   const isAdmin = userInfo?.role === "admin";
 
   return (
