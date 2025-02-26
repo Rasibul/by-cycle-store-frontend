@@ -18,31 +18,18 @@ const Login = () => {
   const navigate = useNavigate();
   const [login, { isLoading, error }] = useLoginMutation();
 
- // src/components/Login.tsx
-const onSubmit = async (data: FormData) => {
-  try {
-    const response = await login(data).unwrap();
-    const token = response.data.token;
-    const expirationTime = new Date().getTime() + (10 * 60 * 1000) - 5000; 
-
-    dispatch(setUser({ user: response.data, token }));
-    localStorage.setItem("token", token);
-    localStorage.setItem("tokenExpiration", expirationTime.toString());
-
-    // Set a timeout to clear the token after 10 minutes
-    setTimeout(() => {
-      localStorage.removeItem("token");
-      localStorage.removeItem("tokenExpiration");
-      navigate("/login");
-    }, 10 * 60 * 1000);
-
-    toast.success("Login successful! 🎉");
-    navigate("/");
-  } catch (err) {
-    toast.error("Login failed! 😢");
-    console.error("Login failed", err);
-  }
-};
+  const onSubmit = async (data: FormData) => {
+    try {
+      const response = await login(data).unwrap();
+      dispatch(setUser({ user: response.data, token: response.data.token }));
+      // localStorage.setItem("token", response.data.token);
+      toast.success("Login successful! 🎉");
+      navigate("/");
+    } catch (err) {
+      toast.error("Login failed! 😢");
+      console.error("Login failed", err);
+    }
+  };
 
   return (
     <div className="flex items-center justify-center min-h-screen bg-gray-100">

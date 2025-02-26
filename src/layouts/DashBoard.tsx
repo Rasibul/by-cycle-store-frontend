@@ -1,7 +1,7 @@
-import { NavLink, Outlet } from "react-router-dom";
+import { NavLink, Outlet, useNavigate } from "react-router-dom";
 import { CgProfile } from "react-icons/cg";
 import { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { RootState } from "../redux/fetures/store";
 import { jwtDecode } from "jwt-decode";
 import { TbDeviceAnalytics } from "react-icons/tb";
@@ -9,15 +9,16 @@ import { FaUserDoctor } from "react-icons/fa6";
 import { FaBorderAll, FaUsers } from "react-icons/fa";
 import { MdProductionQuantityLimits, MdReviews } from "react-icons/md";
 import { IoCartOutline, IoHomeOutline } from "react-icons/io5";
+import { RiLogoutCircleLine } from "react-icons/ri"; // Import the logout icon
+import { logout } from "../redux/fetures/auth/authSlice";
+
 
 const Dashboard: React.FC = () => {
   const [open, setOpen] = useState(false);
-  const [userInfo, setUserInfo] = useState<{ id: string; role: string } | null>(
-    null
-  );
-  const user = useSelector((state: RootState) => state.auth.user) as {
-    token: string;
-  } | null;
+  const [userInfo, setUserInfo] = useState<{ id: string; role: string } | null>(null);
+  const user = useSelector((state: RootState) => state.auth.user) as { token: string } | null;
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (user?.token) {
@@ -32,6 +33,12 @@ const Dashboard: React.FC = () => {
   }, [user]);
 
   const isAdmin = userInfo?.role === "admin";
+
+  const handleLogOut = () => {
+    dispatch(logout()); // Dispatch the logout action to update the state
+    localStorage.removeItem("token"); // Remove the token from local storage
+    navigate("/login"); // Redirect to the login page
+  };
 
   return (
     <div className={`flex ${open && "flex-col"} flex-row sm:flex-row `}>
@@ -424,7 +431,8 @@ const Dashboard: React.FC = () => {
                     )}
                   </NavLink>
                 </li>
-                {/* <li>
+                {/* Logout button */}
+                <li>
                   <button
                     onClick={handleLogOut}
                     className="font-semibold flex justify-start items-center gap-1 pl-2 w-[96%] ml-[4%] py-2 text-[#ffffff] rounded-[30px] h-[45px] initial-style hover:scale-110 transition duration-300 ease-linear"
@@ -447,7 +455,7 @@ const Dashboard: React.FC = () => {
                       ></RiLogoutCircleLine>
                     )}
                   </button>
-                </li> */}
+                </li>
               </ul>
             </>
           </ul>

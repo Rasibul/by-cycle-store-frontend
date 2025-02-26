@@ -6,23 +6,29 @@ import { RootState } from "../../redux/fetures/store";
 import { jwtDecode } from "jwt-decode";
 
 const Navbar = () => {
-  const [userInfo, setUserInfo] = useState<{ id: string; role: string } | null>(
-    null
-  );
+  const [userInfo, setUserInfo] = useState<{ id: string; role: string } | null>(null);
   const [isToggleOpen, setIsToggleOpen] = useState(false);
   const navigate = useNavigate();
-  const user = useSelector((state: RootState) => state.auth.user) as {
-    token: string;
-  } | null;
+  const user = useSelector((state: RootState) => state.auth.user) as { token: string } | null;
 
   useEffect(() => {
     if (user?.token) {
       try {
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        const decoded: any = jwtDecode(user?.token);
-        setUserInfo({ id: decoded.id, role: decoded.role });
+        const decoded: any = jwtDecode(user.token);
+        const currentTime = Date.now() / 1000;
+
+        if (decoded.exp < currentTime) {
+          // Token is expired
+          localStorage.removeItem("user"); // Clear the token from local storage
+          setUserInfo(null); // Reset user info
+        } else {
+          // Token is valid
+          setUserInfo({ id: decoded.id, role: decoded.role });
+        }
       } catch (error) {
         console.error("Invalid token:", error);
+        localStorage.removeItem("user"); // Clear the token from local storage
+        setUserInfo(null); // Reset user info
       }
     }
   }, [user]);
@@ -67,7 +73,7 @@ const Navbar = () => {
 
         {/* Auth Buttons */}
         <div className="hidden lg:block">
-          {user ? (
+          {userInfo ? (
             // Show Dashboard button if user is logged in
             <button
               type="button"
@@ -114,7 +120,7 @@ const Navbar = () => {
               </li>
             ))}
             <li>
-              {user ? (
+              {userInfo ? (
                 <button
                   onClick={() => {
                     handleDashboard();
