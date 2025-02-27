@@ -45,24 +45,6 @@ const About = () => {
           </div>
         </section>
 
-        {/* Video Section */}
-        <section className="mt-12 text-center">
-          <h2 className="text-3xl font-semibold text-gray-800 mb-6">
-            Watch Our Journey
-          </h2>
-          <div className="relative">
-            <iframe
-              width="100%"
-              height="500"
-              src="https://www.youtube.com/embed/dQw4w9WgXcQ" // Replace with your video link
-              title="Our Journey"
-              className="rounded-lg shadow-lg"
-              allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
-              allowFullScreen
-            ></iframe>
-          </div>
-        </section>
-
         {/* What We Do Section */}
         <section className="mt-12 text-center">
           <h2 className="text-3xl font-semibold text-gray-800 mb-6">
